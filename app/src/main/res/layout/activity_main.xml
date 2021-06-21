@@ -13,8 +13,9 @@
         android:text="00"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/remainSecondsTextView"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
@@ -22,11 +23,32 @@
         android:id="@+id/remainSecondsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/remainMinutesTextView"
+        android:text="00"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/remainMinutesTextView"
         app:layout_constraintLeft_toRightOf="@+id/remainMinutesTextView"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="00"
-        android:textSize="40sp"
+        app:layout_constraintTop_toTopOf="@+id/remainMinutesTextView"
         tools:ignore="HardcodedText" />
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="60"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remainMinutesTextView" />
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
