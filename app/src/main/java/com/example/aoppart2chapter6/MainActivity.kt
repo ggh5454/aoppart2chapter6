@@ -2,12 +2,11 @@ package com.example.aoppart2chapter6
 
 import android.annotation.SuppressLint
 import android.media.SoundPool
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.CpuUsageInfo
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -85,16 +84,21 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    currentCountDownTimer1?.cancel()
-                    currentCountDownTimer1 = null
 
+                    stopCountDown1()
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
                     //누르고 나서 바로 초가 움직임
                     seekBar ?: return
 
-                    startCountDown1()
+                    if (seekBar.progress == 0) {
+                        stopCountDown1()
+
+                    } else {
+                        startCountDown1()
+                    }
+
                 }
             }
         )
@@ -112,6 +116,7 @@ class MainActivity : AppCompatActivity() {
                 updateRemainTime1(millisUntilFinished)
                 updateSeekBar1(millisUntilFinished)
             }
+
             override fun onFinish() {
                 completeCountDown1()
             }
@@ -125,6 +130,12 @@ class MainActivity : AppCompatActivity() {
         tickingSoundId1?.let { soundId ->
             soundPool1.play(soundId, 1F, 1F, 0, -1, 1F)
         }
+    }
+
+    private fun stopCountDown1() {
+        currentCountDownTimer1?.cancel()
+        currentCountDownTimer1 = null
+        soundPool1.autoPause()
     }
 
     private fun completeCountDown1() {
@@ -141,14 +152,13 @@ class MainActivity : AppCompatActivity() {
     private fun updateRemainTime1(remainMillis: Long) {
         val remainSeconds = remainMillis / 1000
 
-        remainMinutesTextView.text = "%02d".format(remainSeconds / 60)
+        remainMinutesTextView.text = "%02d'".format(remainSeconds / 60)
         remainSecondsTextView.text = "%02d".format(remainSeconds % 60)
     }
 
     private fun updateSeekBar1(remainMillis: Long) {
         seekBar1.progress = (remainMillis / 1000 / 60).toInt()
     }
-
 
 
     private fun bindViews2() {
@@ -163,16 +173,24 @@ class MainActivity : AppCompatActivity() {
                         updateRemainTime2(progress * 60 * 1000L)
                     }
                 }
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    currentCountDownTimer2?.cancel()
-                    currentCountDownTimer2 = null
 
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+                    stopCountDown2()
                 }
+
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
                     //누르고 나서 바로 초가 움직임
                     seekBar ?: return
 
-                    startCountDown2()
+                    if (seekBar.progress == 0) {
+                        stopCountDown2()
+
+                    } else {
+                        startCountDown2()
+                    }
+
+
                 }
             }
         )
@@ -189,6 +207,7 @@ class MainActivity : AppCompatActivity() {
                 updateRemainTime2(millisUntilFinished)
                 updateSeekBar2(millisUntilFinished)
             }
+
             override fun onFinish() {
                 completeCountDown2()
             }
@@ -201,6 +220,13 @@ class MainActivity : AppCompatActivity() {
         tickingSoundId2?.let { soundId ->
             soundPool2.play(soundId, 1F, 1F, 1, -1, 1F)
         }
+    }
+
+    private fun stopCountDown2() {
+        currentCountDownTimer2?.cancel()
+        currentCountDownTimer2 = null
+        soundPool1.autoPause()
+
     }
 
     private fun completeCountDown2() {
@@ -217,7 +243,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateRemainTime2(remainMillis: Long) {
         val remainSeconds = remainMillis / 1000
 
-        remainMinutesTextView2.text = "%02d".format(remainSeconds / 60)
+        remainMinutesTextView2.text = "%02d'".format(remainSeconds / 60)
         remainSecondsTextView2.text = "%02d".format(remainSeconds % 60)
     }
 
